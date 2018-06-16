@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="p6spy-2.1.4">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/p6spy-2.1.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
