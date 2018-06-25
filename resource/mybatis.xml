@@ -25,5 +25,6 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 	<!-- 关联局部配置文件 -->
 	<mappers>
 		<mapper resource="cn/java/dao/impl/UserDaoImpl.xml"/>
+		<mapper resource="cn/java/dao/impl/HusbandDaoImpl.xml"/>
 	</mappers>
 </configuration>

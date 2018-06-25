@@ -99,4 +99,30 @@ public class UserDaoImpl {
         int result = session.delete("cn.java.dao.impl.UserDaoImpl.deleteUser",4L);
         session.commit();
     }
+
+    @Test
+    public void dynamicUpdate() {
+        User user = new User();
+        user.setId(1L);
+        user.setPwd("123456");
+        int result = session.update("cn.java.dao.impl.UserDaoImpl.dynamicUpdate",user);
+        session.commit();
+    }
+
+    @Test
+    public void batchDelete() {
+        String[] target = {"4","5","8"};
+        int result = session.delete("cn.java.dao.impl.UserDaoImpl.batchDelete",target);
+        System.out.println("result="+result);
+        session.commit();
+    }
+
+    @Test
+    public void trimSelect() {
+        User user = new User();
+        //user.setUsername("小田旺");
+        //user.setPwd("888");
+        List<User> result = session.selectList("cn.java.dao.impl.UserDaoImpl.trimSelect",user);
+        result.forEach(System.out::println);
+    }
 }

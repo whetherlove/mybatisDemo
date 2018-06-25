@@ -57,4 +57,37 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 			</if>
 		</where>
 	</select>
+	<update id="dynamicUpdate" parameterType="User">
+		UPDATE users
+		<set>
+			<if test="username != null and username != ''">
+			  	username = #{username},
+			</if>
+			<if test="pwd != null and pwd != ''">
+				pwd = #{pwd},
+			</if>
+			id = #{id}
+		</set>
+		WHERE id = #{id}
+	</update>
+
+	<!--批量删除-->
+	<delete id="batchDelete" parameterType="List">
+		DELETE FROM users WHERE id IN
+		<foreach collection="array" item="temp" open="(" separator="," close=")">
+			#{temp}
+		</foreach>
+	</delete>
+
+	<select id="trimSelect" parameterType="User" resultType="User">
+		SELECT * FROM users
+		<trim prefix="WHERE" suffixOverrides="AND">
+			<if test="username != null and username != ''">
+				username=#{username} AND
+			</if>
+			<if test="pwd != null and pwd != ''">
+				pwd=#{pwd} AND
+			</if>
+		</trim>
+	</select>
 </mapper>

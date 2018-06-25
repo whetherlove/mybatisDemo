@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--
+	namespace：命名空间，其值为某一个dao层类的具体路径
+ -->
+<mapper namespace="cn.java.dao.impl.HusbandDaoImpl">
+
+    <resultMap id="hus" type="cn.java.entity.Husband">
+        <result property="husid" javaType="java.lang.Long" column="husid"/>
+        <result property="husname" javaType="java.lang.String" column="husname"/>
+        <result property="gender" javaType="java.lang.String" column="gender"/>
+        <result property="age" javaType="java.lang.Integer" column="age"/>
+        <result property="privatemoney" javaType="java.lang.Float" column="privatemoney"/>
+        <association property="wife" javaType="cn.java.entity.Wife">
+            <result property="wifeid" javaType="java.lang.Long" column="wifeid"/>
+            <result property="wifename" javaType="java.lang.String" column="wifename"/>
+            <result property="sex" javaType="java.lang.String" column="sex"/>
+            <result property="facetype" javaType="java.lang.String" column="facetype"/>
+            <result property="height" javaType="java.lang.Float" column="height"/>
+        </association>
+    </resultMap>
+
+    <select id="selectHusband" parameterType="java.lang.String" resultMap="hus">
+        SELECT * FROM husbands h INNER JOIN wifes w ON h.wifeid = w.wifeid WHERE husname=#{0}
+    </select>
+
+    <resultMap id="cus" type="cn.java.entity.Customer">
+        <result property="cusId" javaType="java.lang.Long" column="cusId"/>
+        <result property="cusName" javaType="java.lang.String" column="cusName"/>
+        <result property="gender" javaType="java.lang.String" column="gender"/>
+        <result property="cusTel" javaType="java.lang.String" column="cusTel"/>
+        <collection property="orders" ofType="cn.java.entity.Order">
+            <result property="orderId" javaType="java.lang.Long" column="orderId"/>
+            <result property="address" javaType="java.lang.String" column="address"/>
+            <result property="price" javaType="java.lang.Float" column="price"/>
+            <result property="cId" javaType="java.lang.Long" column="cId"/>
+        </collection>
+    </resultMap>
+
+    <select id="selectOrders" parameterType="java.lang.String" resultMap="cus">
+        SELECT * FROM customers c INNER JOIN orders o ON c.cusId = o.cId WHERE cusName=#{0}
+    </select>
+</mapper>
